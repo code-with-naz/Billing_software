@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>View Customers</title>
+    <style>
+        body {
+            background-color: aquamarine;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        section {
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer List</h1>
+        <a href="index.html">Back to Add Customer</a>
+    </header>
+    <section>
+        <h2>Customers</h2>
+        <ul id="customerList"></ul>
+    </section>
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/api';
+        const customerList = document.getElementById('customerList');
+    
+        // Fetch customers from the API
+        const fetchCustomers = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/customers/view`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch customers');
+                }
+                const data = await response.json();
+                console.log('Fetched customers:', data); // Log fetched data for debugging
+                return data;
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+                alert('Unable to fetch customer data. Please check the console for more details.');
+                return [];
+            }
+        };
+    
+       
+        const renderCustomers = async () => {
+            try {
+                const customers = await fetchCustomers();
+                customerList.innerHTML = ''; 
+                if (customers.length === 0) {
+                    customerList.innerHTML = '<li>No customers found.</li>';
+                } else {
+                    customers.forEach(customer => {
+                        const li = document.createElement('li');
+                        li.textContent = `Name: ${customer.name} - Gender: ${customer.gender} - Contact: ${customer.contact} - Email: ${customer.email}`;
+                        customerList.appendChild(li);
+                    });
+                }
+            } catch (error) {
+                console.error('Error rendering customers:', error);
+                alert('Error displaying customers.');
+            }
+        };
+    
+        
+        renderCustomers();
+    </script>
+    
+</body>
+</html>

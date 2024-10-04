@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="billscript.js" defer></script>
+    <title>Add Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #billingSection {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            margin-top: 30px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: rgb(209, 76, 98);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #billingMessage {
+            margin-top: 10px;
+            color: green;
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Billing Management</h1>
+    <section id="billingSection">
+        <h2>Add Billing</h2>
+        <form id="billingForm">
+            <label for="billingCustomer">Select Customer:</label>
+            <select id="billingCustomer"></select>
+            <label for="billingProduct">Select Product:</label>
+            <select id="billingProduct"></select>
+            <label for="billingQuantity">Quantity:</label>
+            <input type="number" id="billingQuantity" min="1" required>
+            <button type="submit">Add Billing</button>
+            <p id="billingMessage"></p>
+        </form>
+    </section>
+    <a href="viewbillings.html">View Billing</a>
+</body>
+</html>

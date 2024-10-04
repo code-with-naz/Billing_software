@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>View Products</title>
+
+    <style>
+        *{
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>View Products</h1>
+        <a href="index.html">Back to Main Page</a>
+    </header>
+
+    <section id="productSection">
+        <h2>Product List</h2>
+        <ul id="productList"></ul>
+        <div id="productMessage"></div>
+    </section>
+
+    <script>
+        const productList = document.getElementById('productList');
+        const API_BASE_URL = 'http://localhost:3000/api';
+
+        const fetchProducts = async () => {
+            const response = await fetch(`${API_BASE_URL}/products/view`);
+            if (!response.ok) throw new Error('Failed to fetch products');
+            return await response.json();
+        };
+
+        const renderProducts = async () => {
+            try {
+                const products = await fetchProducts();
+                productList.innerHTML = '';
+                products.forEach(product => {
+                    const li = document.createElement('li');
+                    li.textContent = `${product.name} - Rs.${product.price} - Qty: ${product.quantity} -Brand:${product.brand} -Supplier:${product.supplier} -Old Stock:${product.oldStock} -category:${product.category}`;
+                    productList.appendChild(li);
+                });
+            } catch (error) {
+                document.getElementById('productMessage').textContent = error.message;
+                console.error('Error rendering products:', error);
+            }
+        };
+
+        const initApp = async () => {
+            await renderProducts(); 
+        };
+
+        initApp();
+    </script>
+</body>
+</html>
